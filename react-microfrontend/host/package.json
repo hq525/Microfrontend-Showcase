@@ -4,14 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite - mode dev - port 5000 - strictPort",
-    "dev:fed": "vite build - watch - mode dev && vite preview - port 5000 - strictPort",
-    "build": "tsc && vite build",
-    "preview": "vite preview - port 5000 - strictPort"
+    "dev": "vite --mode dev --port 5000 --strictPort",
+    "dev:fed": "concurrently \"vite build --watch --mode dev\" \"yarn preview:watch\"",
+    "dev:all": "concurrently \"yarn dev:fed\" \"yarn --cwd ../mfe1 dev:fed\" \"yarn --cwd ../mfe2 dev:fed\"",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "preview:watch": "nodemon --watch dist --exec \"vite preview --port 5000 --strictPort\""
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -19,10 +22,12 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^9.1.2",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "nodemon": "^3.1.10",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5"

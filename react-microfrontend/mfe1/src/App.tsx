@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import useStore from 'host/store'
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [count, setCount] = useState(0);
+  const { count: hostCount, increment, clear } = useStore()
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="mfe1-wrapper mfe-card">
+      <h2>MFE1 Application</h2>
+      <div className="mfe-content">
+        <div className="feature-container">
+          <div className="button-container">
+            <button
+              onClick={() => setCount(prev => prev + 1)}
+              className="button"
+            >
+              Count: {count}
+            </button>
+            <button
+              onClick={() => setCount(0)}
+              className="button"
+            >
+              Clear
+            </button>
+          </div>
+          <div className="button-container">
+            <div className="button-group">
+              <button
+                onClick={increment}
+                className="button"
+              >
+                Host Count: {hostCount}
+              </button>
+            </div>
+            <div className="button-group">
+              <button
+                onClick={clear}
+                className="button"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
